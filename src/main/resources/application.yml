@@ -1,0 +1,26 @@
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: DEBUG
+spring:
+  security:
+    oauth2:
+      client:
+        registration:   
+          nam:
+            provider: nam
+            client-id: ${OAUTH_CLIENT_ID:}
+            client-secret: ${OAUTH_CLIENT_SECRET}  
+            authorization-grant-type: authorization_code
+            scope: openid,name
+            #redirect-uri: {baseUrl}/login/oauth2/code/nam
+        provider:
+          nam:
+            authorization-uri: ${OAUTH_IDP_URL}/authorize?resourceServer=935_consulta
+            token-uri: ${OAUTH_IDP_URL}/oauth/token
+            user-info-uri: ${OAUTH_IDP_URL}/userinfo
+            jwk-set-uri: ${OAUTH_IDP_URL}/.well-known/jwks.json
+            issuer-uri: ${OAUTH_IDP_URL}/
+            user-name-attribute: sub
